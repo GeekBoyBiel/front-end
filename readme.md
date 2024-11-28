@@ -187,14 +187,19 @@ Cadastra um novo colaborador no sistema, incluindo informações pessoais, ender
 
 ### Observações:
 
-1. **Front-End com Select2:**
+1. **Front-End:**
    - Utilize os endpoints de select (`/getEmpresas`, `/getCargos`, etc.) para popular os campos dropdown.
+   - Nós utilizamos a referência em https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/
 
 2. **Validação:**
    - Valide os campos obrigatórios antes de enviar a requisição para evitar erros.
 
 3. **Depuração:**
-   - Caso algum endpoint retorne erro, verifique os logs do servidor para detalhes.
+   - Caso algum endpoint retorne erro, verifique os logs do servidor para exibir o detalhe do erro.
 
 4. **Estrutura:**
    - Configure as opções de `select2` para buscar diretamente dos endpoints com o formato esperado (`id` e `text`).
+  
+4. **Funcionalidade:**
+   - Configure a ação de um botão Enviar, para realizar a chamada da api /funcionarios/novo_colaborador realizando o envio de um arquivo json conforme documentado acima.
+  
