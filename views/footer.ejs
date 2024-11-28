@@ -1,0 +1,32 @@
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+  <div class="container-fluid d-flex flex-wrap justify-content-end me-3 py-2 flex-md-row flex-column">
+    <div class="mb-2 mb-md-0">
+      © <span id="currentYear"></span>, 
+      <!-- made with ❤️ by <a href="https://dshow.com.br" target="_blank" class="footer-link fw-medium">Equipe Dshow []'s</a> -->
+        <span id="changelogVersion"></span>
+    </div>
+  </div>
+</footer>
+<!-- / Footer -->
+
+<script>
+
+
+  // Script para definir o ano atual e buscar a última versão do changelog
+  document.addEventListener('DOMContentLoaded', function() {
+    // Define o ano atual
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Busca a última versão do changelog
+    fetch('/changelog/versao')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('changelogVersion').textContent = data.Versao;
+      })
+      .catch(error => console.error('Erro ao buscar a última versão do changelog:', error));
+  });
+</script>
+
+<!-- Scripts comuns -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
