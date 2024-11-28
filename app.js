@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const routes = [
 
   // Opções não presentes no menu
-  { path: '/', router: require('./routes/index') },
+  { path: '/', router: require('./routes/funcionarios') },
 
   // R.H.
   { path: '/funcionarios', router: require('./routes/funcionarios') },
