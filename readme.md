@@ -13,7 +13,6 @@ Cadastra um novo colaborador no sistema, incluindo informações pessoais, ender
 - `Content-Type: application/json`
 
 ### **Corpo da Requisição**
-
 ```json
 {
   "nome": "João Silva",
@@ -58,12 +57,13 @@ Cadastra um novo colaborador no sistema, incluindo informações pessoais, ender
 }
 ```
 
-### **Resposta**
+### **Respostas**
 
 #### Sucesso:
 - **Status Code:** `200 OK`
 ```json
 {
+  "status": 200,
   "success": true,
   "message": "Colaborador cadastrado com sucesso!"
 }
@@ -73,133 +73,152 @@ Cadastra um novo colaborador no sistema, incluindo informações pessoais, ender
 - **Status Code:** `500 Internal Server Error`
 ```json
 {
-  "error": "Erro ao cadastrar colaborador."
+  "status": 500,
+  "success": false,
+  "message": "Erro ao cadastrar colaborador.",
+  "error": "Descrição detalhada do erro"
 }
 ```
 
 ---
 
-## **2. Endpoints para Select2**
+## **2. Endpoints de Dados Selecionáveis**
+
+### **Descrição Geral**
+Endpoints para popular campos de seleção no front-end.
+
+---
 
 ### **2.1. Empresas**
 - **Endpoint:** `/getEmpresas`
-- **Descrição:** Carrega a lista de empresas disponíveis.
+- **Descrição:** Retorna uma lista de empresas.
 - **Método:** `GET`
-- **Resposta:**
+- **Resposta de Sucesso:**
 ```json
-[
-  { "id": 1, "text": "Empresa A" },
-  { "id": 2, "text": "Empresa B" }
-]
+{
+  "status": 200,
+  "success": true,
+  "message": "Empresas obtidas com sucesso.",
+  "data": [
+    { "id": 1, "text": "Empresa A" },
+    { "id": 2, "text": "Empresa B" }
+  ]
+}
 ```
+
+---
 
 ### **2.2. Regimes**
 - **Endpoint:** `/getRegimes`
-- **Descrição:** Lista os regimes de contratação disponíveis.
+- **Descrição:** Retorna os regimes de contratação disponíveis.
 - **Método:** `GET`
-- **Resposta:**
+- **Resposta de Sucesso:**
 ```json
-[
-  { "id": 1, "text": "CLT" },
-  { "id": 2, "text": "PJ" }
-]
+{
+  "status": 200,
+  "success": true,
+  "message": "Regimes obtidos com sucesso.",
+  "data": [
+    { "id": 1, "text": "CLT" },
+    { "id": 2, "text": "PJ" }
+  ]
+}
 ```
+
+---
 
 ### **2.3. Cargos**
 - **Endpoint:** `/getCargos`
-- **Descrição:** Lista os cargos disponíveis.
+- **Descrição:** Retorna a lista de cargos disponíveis.
 - **Método:** `GET`
-- **Resposta:**
+- **Resposta de Sucesso:**
 ```json
-[
-  { "id": 1, "text": "Desenvolvedor" },
-  { "id": 2, "text": "Analista" }
-]
+{
+  "status": 200,
+  "success": true,
+  "message": "Cargos obtidos com sucesso.",
+  "data": [
+    { "id": 1, "text": "Desenvolvedor" },
+    { "id": 2, "text": "Analista" }
+  ]
+}
 ```
+
+---
 
 ### **2.4. Setores**
 - **Endpoint:** `/getSetores`
-- **Descrição:** Lista os setores disponíveis.
+- **Descrição:** Retorna os setores disponíveis.
 - **Método:** `GET`
-- **Resposta:**
+- **Resposta de Sucesso:**
 ```json
-[
-  { "id": 1, "text": "TI" },
-  { "id": 2, "text": "RH" }
-]
-```
-
-### **2.5. Funções**
-- **Endpoint:** `/getFuncoes`
-- **Descrição:** Lista as funções disponíveis.
-- **Método:** `GET`
-- **Resposta:**
-```json
-[
-  { "id": 1, "text": "Programador" },
-  { "id": 2, "text": "Designer" }
-]
-```
-
-### **2.6. Grau de Parentesco**
-- **Endpoint:** `/getGrauParentesco`
-- **Descrição:** Lista os graus de parentesco para contatos de emergência.
-- **Método:** `GET`
-- **Resposta:**
-```json
-[
-  { "id": 1, "text": "Mãe" },
-  { "id": 2, "text": "Pai" }
-]
+{
+  "status": 200,
+  "success": true,
+  "message": "Setores obtidos com sucesso.",
+  "data": [
+    { "id": 1, "text": "TI" },
+    { "id": 2, "text": "RH" }
+  ]
+}
 ```
 
 ---
 
-## **3. Endpoints para Estados e Cidades**
+## **3. Endpoints para Localidades**
 
 ### **3.1. Estados**
 - **Endpoint:** `/getEstados`
-- **Descrição:** Retorna uma lista de estados (usando a API do IBGE).
+- **Descrição:** Retorna uma lista de estados brasileiros.
 - **Método:** `GET`
-- **Resposta:**
+- **Resposta de Sucesso:**
 ```json
-[
-  { "id": 12, "text": "Acre" },
-  { "id": 27, "text": "Alagoas" }
-]
-```
-
-### **3.2. Cidades**
-- **Endpoint:** `/getCidades/:estadoId`
-- **Descrição:** Retorna as cidades de um estado específico.
-- **Método:** `GET`
-- **Parâmetro:**
-  - `estadoId` - ID do estado.
-- **Resposta:**
-```json
-[
-  { "id": 12345, "text": "São Paulo" },
-  { "id": 67890, "text": "Campinas" }
-]
+{
+  "status": 200,
+  "success": true,
+  "message": "Estados obtidos com sucesso.",
+  "data": [
+    { "id": 12, "text": "Acre" },
+    { "id": 27, "text": "Alagoas" }
+  ]
+}
 ```
 
 ---
 
-### Observações:
+### **3.2. Cidades**
+- **Endpoint:** `/getCidades/:estadoId`
+- **Descrição:** Retorna as cidades de um estado.
+- **Método:** `GET`
+- **Parâmetros:**
+  - `estadoId` - ID do estado.
+- **Resposta de Sucesso:**
+```json
+{
+  "status": 200,
+  "success": true,
+  "message": "Cidades obtidas com sucesso.",
+  "data": [
+    { "id": 12345, "text": "São Paulo" },
+    { "id": 67890, "text": "Campinas" }
+  ]
+}
+```
 
-1. **Front-End:**
-   - Utilize os endpoints de select (`/getEmpresas`, `/getCargos`, etc.) para popular os campos dropdown.
-   - Nós utilizamos a referência em https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/
+---
 
-2. **Validação:**
-   - Valide os campos obrigatórios antes de enviar a requisição para evitar erros.
+## **Observações e Boas Práticas**
 
-3. **Depuração:**
-   - Caso algum endpoint retorne erro, verifique os logs do servidor para exibir o detalhe do erro.
+1. **População Dinâmica de Dropdowns:**
+   - Utilize os endpoints de seleção (`/getEmpresas`, `/getCargos`, etc.) diretamente com as configurações do `select2` para dropdowns.
 
-4. **Estrutura:**
-   - Configure as opções de `select2` para buscar diretamente dos endpoints com o formato esperado (`id` e `text`).
-  
-4. **Funcionalidade:**
-   - Configure a ação de um botão Enviar, para realizar a chamada da api /funcionarios/novo_colaborador realizando o envio de um arquivo json conforme documentado acima.
-  
+2. **Validação no Front-End:**
+   - Certifique-se de validar todos os campos obrigatórios antes de enviar dados para o back-end.
+
+3. **Tratamento de Erros:**
+   - Utilize os campos de mensagem e status nas respostas para exibir mensagens claras para o usuário.
+
+4. **Referências de UI:**
+   - Baseie o front-end nos padrões sugeridos, como os do template [Sneat Admin Template](https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/).
+
+---
