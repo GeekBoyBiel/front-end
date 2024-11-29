@@ -1,0 +1,302 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cadastro Funcionário</h5>
+                <button id="closeNovoFuncionarioModal" type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <form id="employeeForm" method="POST" action="/submit-form">
+                <div class="form-group mb-2">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="data_admissao">Data de Admissão</label>
+                    <input type="date" class="form-control" id="data_admissao" name="data_admissao" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="rg">RG</label>
+                    <input type="text" class="form-control" id="rg" name="rg" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="nome_mae">Nome da Mãe</label>
+                    <input type="text" class="form-control" id="nome_mae" name="nome_mae" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="nome_pai">Nome do Pai</label>
+                    <input type="text" class="form-control" id="nome_pai" name="nome_pai" required>
+                </div>
+
+                <!-- Estado Select -->
+                <div class="form-group mb-2">
+                    <label for="estado_nascimento">Estado Nascimento</label>
+                    <select id="estado_nascimento" name="estado_nascimento" class="form-control" required onchange="populateCidades()">
+                        <option value="">Selecione o estado de nascimento</option>
+                    </select>
+                </div>
+
+                <!-- Cidade Nascimento Select -->
+                <div class="form-group mb-2">
+                    <label for="cidade_nascimento">Cidade Nascimento</label>
+                    <select id="cidade_nascimento" name="cidade_nascimento" class="form-control" required>
+                        <option value="">Selecione a cidade de nascimento</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="escolaridade">Escolaridade</label>
+                    <select class="form-control" id="escolaridade" name="escolaridade">
+                        <option>Ensino Médio</option>
+                        <option>Ensino Superior</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="genero">Gênero</label>
+                    <select class="form-control" id="genero" name="genero">
+                        <option>Masculino</option>
+                        <option>Feminino</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="data_nascimento">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
+                </div>
+
+                <!-- Regimes Select -->
+                <div class="form-group mb-2">
+                    <label for="regime">Regime</label>
+                    <select id="regime" name="regime" class="form-control" required>
+                        <option value="">Selecione um regime</option>
+                    </select>
+                </div>
+
+                <!-- Cargos Select -->
+                <div class="form-group mb-2">
+                    <label for="cargo">Cargo</label>
+                    <select id="cargo" name="cargo" class="form-control" required>
+                        <option value="">Selecione um cargo</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" name="telefone">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="email">Email</label>
+                    <input type='email' class='form-control' id='email' name='email' required />
+                </div>
+
+                <!-- Empresas Select -->
+                <div class="form-group mb-2">
+                    <label for="empresa">Empresa</label>
+                    <select id="empresa" name="empresa" class="form-control" required>
+                        <option value="">Selecione uma empresa</option>
+                    </select>
+                </div>
+                
+                <!-- Setores Select -->
+                <div class="form-group mb-2">
+                    <label for="setor">Setor</label>
+                    <select id="setor" name="setor" class="form-control" required>
+                        <option value="">Selecione um setor</option>
+                    </select>
+                </div>
+
+                <!-- Address Information -->
+                <h4>Endereço</h4>
+                <div class='form-group'>
+                    <label for='rua'>Rua</label>
+                    <input type='text' class='form-control' id='rua' name='rua' required />
+                </div>
+                <div class='form-group'>
+                    <label for='numero'>Número</label>
+                    <input type='number' class='form-control' id='numero' name='numero' required />
+                </div>
+                <div class='form-group'>
+                    <label for='complemento'>Complemento</label>
+                    <input type='text' class='form-control' id='complemento' name='complemento' required />
+                </div>
+                <div class='form-group'>
+                    <label for='complemento'>Complemento</label>
+                    <input type='text' class='form-control' id='complemento' name='complemento' required />
+                </div>
+                <div class='form-group'>
+                    <label for='bairro'>Bairro</label>
+                    <input type='text' class='form-control' id='bairro' name='bairro' required />
+                </div>
+
+                <!-- Estado Select -->
+                <div class="form-group mb-2">
+                    <label for="estado">Estado</label>
+                    <select id="estado" name="estado" class="form-control" required onchange="populateCidades()">
+                        <option value="">Selecione o estado</option>
+                    </select>
+                </div>
+
+                <!-- Cidade Select -->
+                <div class="form-group mb-2">
+                    <label for="cidade">Cidade Nascimento</label>
+                    <select id="cidade" name="cidade" class="form-control" required>
+                        <option value="">Selecione a cidade</option>
+                    </select>
+                </div>
+
+                <div class='form-group'>
+                    <label for='cep'>CEP</label>
+                    <input type='cep' class='form-control' id='cep' name='cep' required />
+                </div>
+
+                
+                <!-- Emergency Contacts -->
+                <!-- Repeat fields for emergency contacts if necessary -->
+                <!-- Contatos de Emergência Section -->
+                <h4>Contatos de Emergência</h4>
+                <div id="emergencyContactsContainer">
+                    <div class="emergency-contact mb-3">
+                        <h5>Contato Emergencial 1</h5>
+                        <div class="form-group">
+                            <label for="emergency_nome_1">Nome</label>
+                            <input type="text" class="form-control" id="emergency_nome_1" name="emergency_nome[]" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency_parentesco_1">Grau de Parentesco</label>
+                            <select id="emergency_parentesco_1" name="emergency_parentesco[]" class="form-control" required></select> <!-- Populated dynamically -->
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency_telefone_1">Telefone</label>
+                            <input type="text" class="form-control" id="emergency_telefone_1" name="emergency_telefone[]" required>
+                        </div>
+                        <button type='button' class='btn btn-danger remove-contact'>Remover Contato</button>
+                    </div>
+                </div>
+
+                <!-- Button to add more emergency contacts -->
+                <button type='button' id='addEmergencyContact' class='btn btn-secondary'>Adicionar Contato Emergencial</button>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelarCadastroNovoFuncionario" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" form="myForm" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</div>
+
+<script>
+  document.getElementById('closeNovoFuncionarioModal').addEventListener('click', function() {
+    $('#myModal').modal('hide');
+  });
+  document.getElementById('cancelarCadastroNovoFuncionario').addEventListener('click', function() {
+    $('#myModal').modal('hide');
+  });
+</script>
+
+<!-- JavaScript to populate select fields -->
+<script>
+
+  $(document).ready(function() {
+    // Populate Empresas
+    $.get('/getEmpresas', function(res) {
+        res.data.forEach(function(empresa) {
+            $('#empresa').append(new Option(empresa.text, empresa.id));
+        });
+    });
+
+    // Populate Regimes
+    $.get('/getRegimes', function(res) {
+        res.data.forEach(function(regime) {
+            $('#regime').append(new Option(regime.text, regime.id));
+        });
+    });
+
+    // Populate Cargos
+    $.get('/getCargos', function(res) {
+        res.data.forEach(function(cargo) {
+            $('#cargo').append(new Option(cargo.text, cargo.id));
+        });
+    });
+
+    // Populate Setores
+    $.get('/getSetores', function(res) {
+        res.data.forEach(function(setor) {
+            $('#setor').append(new Option(setor.text, setor.id));
+        });
+    });
+
+    // Populate Estados
+    $.get('/getEstados', function(res) {
+        res.data.forEach(function(estado) {
+            $('#estado').append(new Option(estado.text, estado.id));
+            $('#estado_nascimento').append(new Option(estado.text, estado.id));
+        });
+    });
+  });
+
+function populateCidades() {
+    const estado = $('#estado').val();
+    const estadoNasc = $('#estado_nascimento').val();
+    
+    // Clear previous cities
+    $('#cidade').empty().append(new Option("Selecione uma cidade", ""));
+
+    if (estado || estadoNasc) {
+        $.get(`/getCidades/${estado ?? estadoNasc}`, function(res) {
+            res.data.forEach(function(cidade) {
+                $('#cidade').append(new Option(cidade.text, cidade.id));
+                $('#cidade_nascimento').append(new Option(cidade.text, cidade.id));
+            });
+        });
+    }
+}
+
+</script>
+<script>
+// Add emergency contact functionality
+        let contactIndex = 2; // Start from 2 because we already have one contact
+
+        $('#addEmergencyContact').click(function() {
+            const newContact = `
+              <div class='emergency-contact mb-3'>
+                  <h5>Contato Emergencial ${contactIndex}</h5>
+                  <div class='form-group'>
+                      <label for='emergency_nome_${contactIndex}'>Nome</label>
+                      <input type='text' class='form-control' id='emergency_nome_${contactIndex}' name='emergency_nome[]' required />
+                  </div>
+                  <div class='form-group'>
+                      <label for='emergency_parentesco_${contactIndex}'>Grau de Parentesco</label>
+                      <select id='emergency_parentesco_${contactIndex}' name='emergency_parentesco[]' class='form-control' required></select> <!-- Populated dynamically -->
+                  </div> 
+                  <div class='form-group'>
+                      <label for='emergency_telefone_${contactIndex}'>Telefone</label>
+                      <input type='text' class='form-control' id='emergency_telefone_${contactIndex}' name='emergency_telefone[]' required />
+                  </div> 
+                  <button type='button' class='btn btn-danger remove-contact'>Remover Contato</button> 
+              </div>`;
+              
+              $('#emergencyContactsContainer').append(newContact);
+              contactIndex++;
+              // Repopulate parentesco options in new contact
+              $.get('/api/grau-parentesco', function(data) {
+                  data.forEach(function(parentesco) {
+                      $(`#emergency_parentesco_${contactIndex - 1}`).append(new Option(parentesco.nome, parentesco.id));
+                  });
+              });
+        });
+
+        // Remove contact functionality
+        $(document).on('click', '.remove-contact', function() {
+          $(this).closest('.emergency-contact').remove();
+        });
+</script>

@@ -135,7 +135,9 @@
                                     <h4 class="py-3 mb-4"><span class="text-muted fw-light">Gestão e RH /</span> Funcionários</h4>
                                 </div>
                                 <div>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoFuncionario"><i class='bx bx-user-plus me-2'></i> Adicionar Funcionário</button>
+                                    <!-- Modal Novo Funcionário -->
+                                    <%- include('./partials/cadastro_funcionario_modal') %>
+                                    <button id="openNovoFuncionarioModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoFuncionario"><i class='bx bx-user-plus me-2'></i> Adicionar Funcionário</button>
                                 </div>
                             </div>
                             <!-- Column Search -->
@@ -226,5 +228,12 @@
         <script src="../..//js/main.js"></script>
         <script src="../..//js/notifications.js"></script>
         <script type="module" src="../..//js/funcionarios.js"></script>
+        <!-- Modal Open Script -->
+
+        <script>
+          document.getElementById('openNovoFuncionarioModal').addEventListener('click', function() {
+           $('#myModal').modal('show');
+           });
+        </script>
     </body>
 </html>
