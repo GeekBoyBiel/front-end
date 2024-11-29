@@ -177,7 +177,7 @@ router.get('/getEstadoIdBySigla/:sigla', async (req, res) => {
 router.post('/novo-colaborador', uploadMultiple, (req, res) => {
   const {
     nome, data_admissao, cpf, rg, nome_mae, nome_pai, cidade_nascimento, estado_nascimento, escolaridade, genero,
-    data_nascimento, regime, telefone, email, empresa, setor, rua, numero, complemento, bairro, cidade, estado, cep,
+    data_nascimento, regime, telefone, email, empresa, setor, cargo, rua, numero, complemento, bairro, cidade, estado, cep,
     observacoes, cnpj, contatosEmergencia, usuario_precifica, imagem_Url
   } = req.body;
 
@@ -190,7 +190,7 @@ router.post('/novo-colaborador', uploadMultiple, (req, res) => {
 
   const values = [
     nome, data_admissao, cpf, rg, nome_mae, nome_pai, cidade_nascimento, estado_nascimento,
-    escolaridade, genero, data_nascimento, regime, telefone, email, 0, empresa, setor, rua, numero, complemento, bairro,
+    escolaridade, genero, data_nascimento, regime, telefone, email, cargo, empresa, setor, rua, numero, complemento, bairro,
     cidade, estado, cep, observacoes, -1, cnpj
   ];
 
