@@ -84,19 +84,7 @@ $(function () {
     readURL(this);
   });
 
-  carregarSelect('/funcionarios/getTiposDocumento', '#tipo_documento');
-  carregarSelect('/funcionarios/getEmpresas', '#empresa');
-  carregarSelect('/funcionarios/getRegimes', '#regime');
-  carregarSelect('/funcionarios/getCargos', '#cargo');
-  carregarSelect('/funcionarios/getSetores', '#setor');
-  carregarSelect('/funcionarios/getFuncoes', '#funcao');
-  carregarSelect('/funcionarios/getEstados', '#estado_nascimento');
-  carregarSelect('/funcionarios/getEstados', '#estado');
-  carregarSelect('/funcionarios/getGeneros', '#genero');
-  carregarSelect('/funcionarios/getEscolaridades', '#escolaridade');
-  carregarSelect('/funcionarios/getGrauParentesco', '#grau_parentesco_1');
-  carregarSelect('/funcionarios/getGrauParentesco', '#grau_parentesco_2');
-
+  
   $('#estado').change(function () {
     const estadoId = $(this).val();
     carregarSelect(`/funcionarios/getCidades/${estadoId}`, '#cidade');
@@ -115,55 +103,6 @@ $(function () {
   });
 });
 
-function carregarSelect(url, selectId, defaultOption = "Selecione", callback) {
-  $.getJSON(url, function (data) {
-    const select = $(selectId);
-    select.empty();
-    select.append(new Option(defaultOption, ""));
-    data.forEach(item => {
-      select.append(new Option(item.text, item.id));
-    });
-    select.trigger('change');
-    if (callback) callback();
-  });
-}
-
-function carregarSelectComCallback(url, selectId, defaultOption = "Selecione", callback) {
-  $.getJSON(url, function (data) {
-    const select = $(selectId);
-    select.empty();
-    select.append(new Option(defaultOption, ""));
-    data.forEach(item => {
-      select.append(new Option(item.text, item.id));
-    });
-    select.trigger('change');
-    if (callback) callback();
-  });
-}
-
-function buscarEnderecoPorCep(cep) {
-  $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
-    if (!data.erro) {
-      console.log(data);
-      $('#rua').val(data.logradouro);
-      $('#bairro').val(data.bairro);
-      $.getJSON(`/funcionarios/getEstadoIdBySigla/${data.uf}`, function (estadoData) {
-        const estadoId = estadoData.id;
-        $('#estado').val(estadoId).trigger('change');
-        carregarSelectComCallback(`/funcionarios/getCidades/${estadoId}`, '#cidade', 'Selecione a cidade', function () {
-          const cidade = data.localidade;
-          $('#cidade option').each(function () {
-            if ($(this).text() === cidade) {
-              $(this).prop('selected', true);
-              return false;
-            }
-          });
-          $('#cidade').trigger('change');
-        });
-      });
-    }
-  });
-}
 
 function botaoacao(codigo, id) {
   return `
@@ -188,87 +127,3 @@ function readURL(input) {
     reader.readAsDataURL(input.files[0]);
   }
 }
-
-document.getElementById('funcionarioForm').addEventListener('submit', function (event) {
-  event.preventDefault();
-  const form = event.target;
-
-  if (!form.checkValidity()) {
-    event.stopPropagation();
-    alert('Por favor, preencha todos os campos obrigatórios.');
-
-    const firstInvalidField = form.querySelector(':invalid');
-    if (firstInvalidField) {
-      firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      firstInvalidField.focus();
-    }
-  } else {
-    const formData = new FormData(form);
-
-    // Adicionando campos manualmente ao formData
-    formData.append('nome', $('#nome').val());
-    formData.append('data_admissao', $('#data_admissao').val());
-    formData.append('cpf', $('#cpf').val());
-    formData.append('rg', $('#rg').val());
-    formData.append('nome_mae', $('#nome_mae').val());
-    formData.append('nome_pai', $('#nome_pai').val());
-    formData.append('cidade_nascimento', $('#cidade_nascimento').val());
-    formData.append('estado_nascimento', $('#estado_nascimento').val());
-    formData.append('escolaridade', $('#escolaridade').val());
-    formData.append('genero', $('#genero').val());
-    formData.append('data_nascimento', $('#data_nascimento').val());
-    formData.append('regime', $('#regime').val());
-    formData.append('telefone', $('#telefone').val());
-    formData.append('email', $('#email').val());
-    formData.append('cargo', $('#cargo').val());
-    formData.append('empresa', $('#empresa').val());
-    formData.append('setor', $('#setor').val());
-    formData.append('rua', $('#rua').val());
-    formData.append('numero', $('#numero').val());
-    formData.append('complemento', $('#complemento').val());
-    formData.append('bairro', $('#bairro').val());
-    formData.append('cidade', $('#cidade').val());
-    formData.append('estado', $('#estado').val());
-    formData.append('cep', $('#cep').val());
-    formData.append('usuario_precifica', $('#usuario_precifica').val());
-    formData.append('funcao', $('#funcao').val());
-
-    const contatosEmergencia = [
-      {
-        nome: $('#nome_contato_1').val(),
-        parentesco: $('#grau_parentesco_1').val(),
-        telefone: $('#telefone_contato_1').val()
-      },
-      {
-        nome: $('#nome_contato_2').val(),
-        parentesco: $('#grau_parentesco_2').val(),
-        telefone: $('#telefone_contato_2').val()
-      }
-    ];
-
-    formData.append('contatosEmergencia', JSON.stringify(contatosEmergencia));
-
-    $.ajax({
-      url: '/funcionarios/novo-colaborador',
-      type: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function (response) {
-        if (response.success) {
-          alert('Funcionário adicionado com sucesso!');
-          $('#novoFuncionario').modal('hide');
-          location.reload();
-        } else {
-          alert(response.error || 'Erro ao adicionar funcionário.');
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.error('Erro ao adicionar funcionário:', textStatus, errorThrown);
-        alert('Erro ao adicionar funcionário.');
-      }
-    });
-  }
-
-  form.classList.add('was-validated');
-});
