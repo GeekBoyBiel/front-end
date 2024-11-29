@@ -34,6 +34,7 @@ Cadastra um novo colaborador no sistema, incluindo informações pessoais, ender
   "rua": "Rua das Flores",
   "numero": "123",
   "complemento": "Apto 45",
+  "cargo": 1,
   "bairro": "Centro",
   "cidade": "São Paulo",
   "estado": "SP",
