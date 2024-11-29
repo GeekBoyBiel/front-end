@@ -36,6 +36,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'assets'))); // Serve a pasta assets sem prefixo
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/js', express.static(path.join(__dirname, 'public/js')));
 
 // Rotas
 const routes = [

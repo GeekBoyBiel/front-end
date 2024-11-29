@@ -415,3 +415,73 @@ document.getElementById('uploadAnexos').addEventListener('click', function() {
     alert('Erro ao anexar arquivos.');
   });
 });
+
+document.getElementById('formNovoFuncionario').addEventListener('submit', function (event) {
+  event.preventDefault(); // Impede o envio automático
+});
+
+
+//Adicionar novo contato
+document.getElementById('adicionarContato').addEventListener('click', () => {
+    let contatoIndex = 1;
+    const container = document.getElementById('contatosEmergenciaContainer');
+    const contatoHTML = `
+        <div class="contato-emergencia row mb-2">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="contatosEmergencia[${contatoIndex}][nome]" placeholder="Nome" required>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="contatosEmergencia[${contatoIndex}][parentesco]" placeholder="Parentesco" required>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" name="contatosEmergencia[${contatoIndex}][telefone]" placeholder="Telefone" required>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-danger btn-sm removerContato"><i class="bx bx-trash"></i></button>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', contatoHTML);
+    contatoIndex++;
+});
+
+// Remover contato
+document.getElementById('contatosEmergenciaContainer').addEventListener('click', (event) => {
+    if (event.target.closest('.removerContato')) {
+        event.target.closest('.contato-emergencia').remove();
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const selectEmpresa = document.getElementById("empresa");
+
+  // Função para buscar empresas do endpoint
+  function carregarEmpresas() {
+    fetch("/getEmpresas", {
+      method: "GET"
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.data) {
+          // Limpar opções existentes (exceto a primeira)
+          selectEmpresa.innerHTML = '<option value="">Selecione uma opção</option>';
+          
+          // Adicionar novas opções
+          data.data.forEach(empresa => {
+            const option = document.createElement("option");
+            option.value = empresa.id; // Define o valor da opção
+            option.textContent = empresa.text; // Define o texto visível
+            selectEmpresa.appendChild(option);
+          });
+        } else {
+          console.error("Erro ao carregar empresas:", data.message);
+        }
+      })
+      .catch(error => {
+        console.error("Erro ao conectar ao servidor:", error);
+      });
+  }
+
+  // Carregar empresas ao inicializar a página
+  carregarEmpresas();
+});
